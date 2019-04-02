@@ -3,7 +3,7 @@ import xlwt
 def write_excel():
     xlwt_file = xlwt.Workbook()
     table = xlwt_file.add_sheet('data',cell_overwrite_ok=True)
-    f = open('coco_dushi.txt')
+    f = open('data.txt')
     data_str = str(f.read())
     datas = data_str.split("<td class='text-left nowrap'>CoCo")
     i = 0
