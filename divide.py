@@ -5,7 +5,7 @@ def write_excel():
     table = xlwt_file.add_sheet('data',cell_overwrite_ok=True)
     f = open('data.txt')
     data_str = str(f.read())
-    datas = data_str.split("<td class='text-left nowrap'>CoCo")
+    datas = data_str.split("  <td class='text-left nowrap'>")
     i = 0
     table.write(i, 0, unicode('name', 'utf-8'))
     table.write(i, 1, unicode('city', 'utf-8'))
@@ -16,13 +16,15 @@ def write_excel():
     table.write(i, 6, unicode('total comments', 'utf-8'))
     table.write(i, 7, unicode('good comments', 'utf-8'))
     i = i + 1
+    print len(datas)
     for data in datas:
         data_split = data.split('<\\/td>\\r\\n\\t\\t\\t<td class=\'text-left nowrap\'>')
+        print len(data_split)
         if len(data_split) >= 27:
             names = data_split[0].split('<td class=\'text-left nowrap\'>')
             if len(names) > 0:
                 name = names[0]
-                table.write(i, 0, unicode('CoCo' + name, 'utf-8'))
+                table.write(i, 0, unicode(name, 'utf-8'))
                 city = data_split[1]
                 table.write(i, 1, unicode(city, 'utf-8'))
                 strict = data_split[3]
