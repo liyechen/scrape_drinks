@@ -10,13 +10,13 @@ def login_post(data_login):
     return r_login
 
 def eleme_login():
-    print('Eleme account:'),
+    print('Eleme account:', end=',')
     eleme_acc = str(input())
     # urls
     get_captcha = "https://h5.ele.me/restapi/eus/v3/captchas"
     r_login = login_post({'captcha_hash': '', 'captcha_hash': '', 'mobile': eleme_acc, 'scf': 'ms'})
     if r_login.status_code == 200:
-        print 'success'
+        print('success')
     else:
         login_resp = json.loads(r_login.text)
         if login_resp['name'] == 'NEED_CAPTCHA':
