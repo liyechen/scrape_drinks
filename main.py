@@ -154,7 +154,7 @@ if __name__ == "__main__":
                             shop_ids.add(restaurant['authentic_id'])
                             address = restaurant['address']
                             name = restaurant['name']
-                            rating = restaurant['rating']
+                            rating = str(restaurant['rating'])
                             rating_count = restaurant['rating_count']
                             recent_order_num = restaurant['recent_order_num']
                             table.write(i, 0, name)
@@ -190,7 +190,7 @@ if __name__ == "__main__":
     #     restaurant = rfw['restaurant']
     #     address = restaurant['address']
     #     name = restaurant['name']
-    #     rating = restaurant['rating']
+    #     rating = str(restaurant['rating'])
     #     rating_count = restaurant['rating_count']
     #     recent_order_num = restaurant['recent_order_num']
     #     table.write(i, 0, name)
