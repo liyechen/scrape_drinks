@@ -104,7 +104,7 @@ def get_eleme_cookies():
         cookies[key] = value
     return cookies
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     # fake login for cookies
     cookies = requests.cookies.RequestsCookieJar()
     login_cookies = eleme_login_to_get_cookies()
