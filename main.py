@@ -16,6 +16,7 @@ def get_restaurants(place_code, cookies):
     url = "https://www.ele.me/restapi/shopping/restaurants?extras%5B%5D=activities&geohash=wtw3sz12nxzf&latitude=31.239666&limit=200&longitude=121.499809&offset=0&terminal=web"
     resp = requests.get(url, cookies = cookies)
     restaurants = json.loads(resp.text)
+    print (restaurants)
     print (type(restaurants))
     print (len(restaurants))
 
@@ -57,8 +58,9 @@ def eleme_login_to_get_cookies():
             validate_code = str(input())
             mobile_url = "https://h5.ele.me/restapi/eus/login/login_by_mobile"
             validate_resp = requests.post(mobile_url, data = {'mobile': eleme_acc, 'scf': 'ms', 'validate_code': validate_code, 'validate_token': validate_token})
-            cookies_json = json.loads(validate_resp.cookies)
-            print (cookies_json)
+            print (type(validate_resp.cookies))
+            print (validate_resp.cookies)
+            return validate_resp.cookies
 
 
 
@@ -76,5 +78,5 @@ def get_eleme_cookies():
 
 if __name__ == "__main__":
     # eleme_cookies = get_eleme_cookies()
-    eleme_login_to_get_cookies()
-    # get_restaurants('', eleme_cookies)
+    cookies = eleme_login_to_get_cookies()
+    get_restaurants('', eleme_cookies)
