@@ -113,10 +113,10 @@ if __name__ == "__main__":
     # get_restaurants('', cookies)
 
     # shanghai's border
-    west_lat = 31.1505322076
-    east_lat = 30.8927974775
-    north_lon = 121.5046691895
-    south_lon = 121.3302612305
+    west_lon = 121.0446166992
+    east_lon = 121.9812011719
+    north_lat = 31.4755240200
+    south_lat = 30.6887068994
 
 
     # restaurants_with_food = get_restaurants_by_keyword('1点点', 31.5, 121.4122, cookies)
@@ -144,8 +144,8 @@ if __name__ == "__main__":
             table.write(0, 4, 'recent_order_num')
         
             i = 1
-            for lat in numpy.linspace(east_lat, west_lat, 20):
-                for lon in numpy.linspace(south_lon, north_lon, 20):
+            for lat in numpy.linspace(south_lat, north_lat, 20):
+                for lon in numpy.linspace(west_lon, east_lon, 20):
                     restaurants_with_food = get_restaurants_by_keyword(shop, lat, lon, cookies)
                     print (restaurants_with_food)
                     for rwf in restaurants_with_food:
