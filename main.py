@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# coding=utf-8
+
 import requests
 import json
 import base64
@@ -144,25 +147,45 @@ if __name__ == '__main__':
             table.write(0, 4, 'recent_order_num')
         
             i = 1
-            for lat in numpy.linspace(south_lat, north_lat, 20):
-                for lon in numpy.linspace(west_lon, east_lon, 20):
-                    restaurants_with_food = get_restaurants_by_keyword(shop, lat, lon, cookies)
-                    print (restaurants_with_food)
-                    for rwf in restaurants_with_food:
-                        restaurant = rwf['restaurant']
-                        if not restaurant['authentic_id'] in shop_ids:
-                            shop_ids.add(restaurant['authentic_id'])
-                            address = restaurant['address']
-                            name = restaurant['name']
-                            rating = str(restaurant['rating'])
-                            rating_count = restaurant['rating_count']
-                            recent_order_num = restaurant['recent_order_num']
-                            table.write(i, 0, name)
-                            table.write(i, 1, address)
-                            table.write(i, 2, rating)
-                            table.write(i, 3, rating_count)
-                            table.write(i, 4, recent_order_num)
-                            i = i + 1
+            # for lat in numpy.linspace(south_lat, north_lat, 20):
+            #     for lon in numpy.linspace(west_lon, east_lon, 20):
+            #         restaurants_with_food = get_restaurants_by_keyword(shop, lat, lon, cookies)
+            #         print (restaurants_with_food)
+            #         for rwf in restaurants_with_food:
+            #             restaurant = rwf['restaurant']
+            #             if not restaurant['authentic_id'] in shop_ids:
+            #                 shop_ids.add(restaurant['authentic_id'])
+            #                 address = restaurant['address']
+            #                 name = restaurant['name']
+            #                 rating = str(restaurant['rating'])
+            #                 rating_count = restaurant['rating_count']
+            #                 recent_order_num = restaurant['recent_order_num']
+            #                 table.write(i, 0, name)
+            #                 table.write(i, 1, address)
+            #                 table.write(i, 2, rating)
+            #                 table.write(i, 3, rating_count)
+            #                 table.write(i, 4, recent_order_num)
+            #                 i = i + 1
+
+            # for lat in numpy.linspace(south_lat, north_lat, 20):
+            #     for lon in numpy.linspace(west_lon, east_lon, 20):
+            restaurants_with_food = get_restaurants_by_keyword(shop, 31.1940075100, 121.4377212524, cookies)
+            print (restaurants_with_food)
+            for rwf in restaurants_with_food:
+                restaurant = rwf['restaurant']
+                if not restaurant['authentic_id'] in shop_ids:
+                    shop_ids.add(restaurant['authentic_id'])
+                    address = restaurant['address']
+                    name = restaurant['name']
+                    rating = str(restaurant['rating'])
+                    rating_count = restaurant['rating_count']
+                    recent_order_num = restaurant['recent_order_num']
+                    table.write(i, 0, name)
+                    table.write(i, 1, address)
+                    table.write(i, 2, rating)
+                    table.write(i, 3, rating_count)
+                    table.write(i, 4, recent_order_num)
+                    i = i + 1
     
     xlwt_file.save('data.xls')
                         
