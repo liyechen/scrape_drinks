@@ -8,7 +8,7 @@
 pillow  
 matplotlib  
 requests  
-pip install python-geohash  
+python-geohash  
 xlwt
 
 使用说明：  
