@@ -3,12 +3,14 @@ import json
 import base64
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+import geohash
 
-def read_places():
-    f = open('places.txt')
-    datas = str(f.read())
-    places = datas.split('\n')
-    print(places)
+def get_place_code(lat, lon):
+    return geohash.encode(lat, lon, 12)
+
+def get_restaurants_url(lat, lon):
+    place_code = get_place_code(lat, lon)
+    url = "https://www.ele.me/restapi/shopping/restaurants?extras%5B%5D=activities&geohash=" + place_code + "&latitude=" + lat + "&limit=200&longitude=" + lon + "&offset=0&terminal=web"
 
 def get_restaurants(place_code, cookies):
     url = "https://www.ele.me/restapi/shopping/restaurants?extras%5B%5D=activities&geohash=wtw3sz12nxzf&latitude=31.239666&limit=200&longitude=121.499809&offset=0&terminal=web"
@@ -22,7 +24,7 @@ def login_post(eleme_acc, captcha_hash, captcha_value):
     r_login = requests.post(login_url, data = {'captcha_hash': captcha_hash, 'captcha_value': captcha_value, 'mobile': eleme_acc, 'scf': 'ms'})
     return r_login
 
-def eleme_login():
+def eleme_login_to_get_cookies():
     print('Eleme account:')
     eleme_acc = str(input())
     # urls
@@ -48,7 +50,17 @@ def eleme_login():
             print ('Captcha:'),
             captcha_value = str(input())
             captcha_login = login_post(eleme_acc, captcha_hash, captcha_value)
-            print (captcha_login.text)
+            captcha_json = json.loads(captcha_login.text)
+            print (captcha_json)
+            validate_token = captcha_json['validate_token']
+            print ('validate code:')
+            validate_code = str(input())
+            mobile_url = "https://h5.ele.me/restapi/eus/login/login_by_mobile"
+            validate_resp = requests.post(mobile_url, data = {'mobile': eleme_acc, 'scf': 'ms', 'validate_code': validate_code, 'validate_token': validate_token})
+            cookies_json = json.loads(validate_resp.cookies)
+            print (cookies_json)
+
+
 
 def get_eleme_cookies():
     f = open('eleme_cookie.txt')
@@ -63,7 +75,6 @@ def get_eleme_cookies():
     return cookies
 
 if __name__ == "__main__":
-    eleme_cookies = get_eleme_cookies()
-    eleme_login()
-    # read_places()
+    # eleme_cookies = get_eleme_cookies()
+    eleme_login_to_get_cookies()
     # get_restaurants('', eleme_cookies)
